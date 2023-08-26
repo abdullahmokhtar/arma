@@ -193,7 +193,7 @@ export default class Signup extends Component {
         profileImageUrl: url,
       };
 
-      const response = await fetch(
+       await fetch(
         "https://arma-64ebb-default-rtdb.europe-west1.firebasedatabase.app/employees.json",
         {
           method: "POST",

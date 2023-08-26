@@ -1,3 +1,17 @@
 p span{
     font-weight: bold;
 }
+
+p a{
+    font-size: 16px;
+    color: black !important;
+    text-decoration: none;
+}
+
+.emp-message{
+    text-align: center;
+    color: yellow;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+

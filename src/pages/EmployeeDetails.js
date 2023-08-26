@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
-import "./EmployeeDetails.module.css"
+import "./EmployeeDetails.module.css";
 import { db } from "../firebase";
 import { onValue, ref } from "firebase/database";
-
 
 const EmployeeDetails = () => {
   const { empId } = useParams();
@@ -19,6 +18,7 @@ const EmployeeDetails = () => {
   const printHandler = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: data.name,
+    pageStyle: "button { display: none !important;}",
   });
 
   useEffect(() => {
@@ -28,16 +28,19 @@ const EmployeeDetails = () => {
         const data = snapshot.val();
 
         if (snapshot.exists()) {
-        setData({ workExperince: [], ...data});
+          setData({ workExperince: [], ...data });
         }
-      })
+      });
     };
     fetchData();
   }, [empId]);
+  if (data.education.length === 0) {
+    return <h1 className="emp-message">unfortunately this employee not found</h1>;
+  }
   return (
     <div ref={componentRef}>
-      <div className="row bg-white p-3">
-        <div className="col-md-4 ">
+      <div className="row bg-white p-3 mt-2">
+        <div className="col-md-4">
           <img src={data.profileImageUrl} alt="employee" />
         </div>
         <div className="col-md-8">
@@ -46,13 +49,14 @@ const EmployeeDetails = () => {
             <span>Name:</span> {data.name}
           </p>
           <p>
-            <span>Email:</span> {data.email}
+            <span>Email:</span>{" "}
+            <a href={`mailto:${data.email}`}>{data.email}</a>
           </p>
           <p>
             <span>phone:</span> {data.phone}
           </p>
           <p>
-            <span>nationalId:</span> {data.nationalId}
+            <span>NationalId:</span> {data.nationalId}
           </p>
           <p>
             <span>Address:</span> {data.address}
@@ -74,10 +78,10 @@ const EmployeeDetails = () => {
             return (
               <div key={index}>
                 <p>
-                  <span>university:</span> {edu.university}
+                  <span>University:</span> {edu.university}
                 </p>
                 <p>
-                  <span>faculty:</span> {edu.faculty} {edu.startEnd}
+                  <span>Faculty:</span> {edu.faculty} {edu.startEnd}
                 </p>
                 <p>
                   <span>Degree:</span> {edu.degree}
@@ -87,7 +91,7 @@ const EmployeeDetails = () => {
           })}
           <h3>Work Experiance</h3>
           <p>
-            <span>current Company:</span> {data.currCompany}
+            <span>Current Company:</span> {data.currCompany}
           </p>
           <p>
             <span>Industry Filed:</span> {data.currIndustryFiled}
@@ -102,7 +106,7 @@ const EmployeeDetails = () => {
             <span>Duties And Respnsiblities:</span> {data.currDuties}
           </p>
           <p>
-            <span>Salry:</span> {data.grossSalary} Egp
+            <span>Salary:</span> {data.grossSalary} Egp
           </p>
           <p>
             <span>Reasons for Leave:</span> {data.reasonsToChangeCompany}
@@ -125,7 +129,7 @@ const EmployeeDetails = () => {
                   <span>Duration:</span> {work.startEndJob}
                 </p>
                 <p>
-                  <span>Reasons for Leave</span>
+                  <span>Reasons for Leave: </span>
                   {work.reasonsToChange}
                 </p>
               </div>
@@ -184,7 +188,6 @@ const EmployeeDetails = () => {
           <button className="btn btn-primary" onClick={printHandler}>
             Print
           </button>
-          {/* <p>university: {data.education[0].university}</p> */}
         </div>
       </div>
     </div>

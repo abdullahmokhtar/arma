@@ -6,7 +6,7 @@ const Card = (props) => {
   return (
     <div className={classes.card}>
       <div className={classes["heading-image"]}>
-        <img src={joinus} alt="join us" loading="lazy" />
+        <img src={joinus} alt="join us" loading="lazy"z />
       </div>
       <h1>Employment Application</h1>
       <p>

@@ -7,7 +7,6 @@ import {
 
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
-import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import EmployeeDetails from "./pages/EmployeeDetails";
 
@@ -18,11 +17,7 @@ const ErrorPage = lazy(() => import("./pages/Error"));
 const router = createBrowserRouter([
   {
     path: "",
-    element: (
-      <AuthContextProvider>
-        <RootLayout />
-      </AuthContextProvider>
-    ),
+    element: <RootLayout />,
     children: [
       { index: true, path: "", element: <HomePage /> },
       {
@@ -73,11 +68,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <AuthContextProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </AuthContextProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
