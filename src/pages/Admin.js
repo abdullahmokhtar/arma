@@ -5,9 +5,11 @@ import EmployeeCard from "../components/EmployeeCard";
 import { db } from "../firebase";
 import { onValue, ref } from "firebase/database";
 
+
 const AdminPage = () => {
   const [data, setData] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [searchByPosition, setSearchByPosition] = useState(false);
   const { user } = UserAuth();
 
   useEffect(() => {
@@ -55,18 +57,33 @@ const AdminPage = () => {
   };
   return (
     <div>
-      <input
-        placeholder="search"
-        type="text"
-        className="form-control w-25 my-3"
-        onChange={(e) => {
-          setSearchName(e.target.value.toLocaleLowerCase());
-        }}
-      />
+      <div className="d-flex align-items-center">
+        <input
+          placeholder={`Search By ${searchByPosition? "Position": "Name"}`}
+          type="text"
+          className="form-control w-25 my-3"
+          onChange={(e) => {
+            setSearchName(e.target.value.toLocaleLowerCase());
+          }}
+        />
+        <input
+          type="checkbox"
+          onChange={(e) => {
+            setSearchByPosition(e.target.checked);
+          }}
+          id="pos"
+          className="form-check-input ms-3"
+        />
+        <label htmlFor="pos" className="form-check-label ms-1">
+          By Position
+        </label>
+      </div>
       {searchName &&
         data
           .filter((employee) => {
-            return employee.name.toLocaleLowerCase().includes(searchName);
+            return searchByPosition
+              ? employee.position.toLocaleLowerCase().includes(searchName)
+              : employee.name.toLocaleLowerCase().includes(searchName);
           })
           .map((employee, index) => {
             return <EmployeeCard key={index} employeeData={employee} />;

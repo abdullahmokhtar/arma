@@ -11,6 +11,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Skills from "./Skills";
 import WorkExperienceHistory from "./WorkExperienceHistory";
 import emailjs from "@emailjs/browser";
+import { v4 as uuidv4 } from "uuid";
 
 export default class Signup extends Component {
   state = {
@@ -109,7 +110,7 @@ export default class Signup extends Component {
     try {
       const imageRef = ref(
         storage,
-        "images/" + this.state.profileImage.name.toLowerCase()
+        "images/" + this.state.profileImage.name.toLowerCase() + uuidv4()
       );
       await uploadBytes(imageRef, this.state.profileImage);
 
@@ -199,7 +200,7 @@ export default class Signup extends Component {
           body: JSON.stringify(data),
         }
       );
-       emailjs.send(
+      emailjs.send(
         "service_i8cll5r",
         "template_r9o749b",
         {
