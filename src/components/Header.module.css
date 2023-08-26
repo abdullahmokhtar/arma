@@ -1,0 +1,19 @@
+header {
+  padding: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.884);
+}
+
+.logo {
+  width: 150px;
+}
+
+header > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    font-size: 2rem;
+    color: #fff !important;
+}
