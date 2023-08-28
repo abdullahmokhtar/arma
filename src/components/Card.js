@@ -1,5 +1,5 @@
 import React from "react";
-import joinus from "./joinus.png";
+import joinus from "../assets/images/joinus.png";
 import classes from "./Card.module.css";
 
 const Card = (props) => {

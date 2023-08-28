@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "../logo.svg";
+import logo from "../../assets/images/logo.svg";
 import classes from "./Header.module.css";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 
 const Header = () => {
   const { user, logout } = UserAuth();
