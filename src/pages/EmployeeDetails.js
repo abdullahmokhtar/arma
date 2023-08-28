@@ -73,6 +73,7 @@ const EmployeeDetails = () => {
           <p>
             <span>position Applied For:</span> {data.position}
           </p>
+          <hr />
           <h3>Education</h3>
           {data.education.map((edu, index) => {
             return (
@@ -89,6 +90,7 @@ const EmployeeDetails = () => {
               </div>
             );
           })}
+          <hr />
           <h3>Work Experiance</h3>
           <p>
             <span>Current Company:</span> {data.currCompany}
@@ -111,6 +113,7 @@ const EmployeeDetails = () => {
           <p>
             <span>Reasons for Leave:</span> {data.reasonsToChangeCompany}
           </p>
+          <hr />
           <h3>Previous Experiance</h3>
           {data.workExperince.map((work, index) => {
             return (
@@ -135,6 +138,7 @@ const EmployeeDetails = () => {
               </div>
             );
           })}
+          <hr />
           <h3>Courses</h3>
           {data.courses.map((course, index) => {
             return (
@@ -151,6 +155,7 @@ const EmployeeDetails = () => {
               </div>
             );
           })}
+          <hr />
           <h3>Language And Computer Skills</h3>
           <p>
             <span>Arabic:</span> {data.arabicLevel}
@@ -164,6 +169,7 @@ const EmployeeDetails = () => {
           <p>
             <span>Microsoft OutLook:</span> {data.msOutlookLevel}
           </p>
+          <hr />
           <h3>Reference</h3>
           <p>
             <span>Name: </span>
@@ -178,6 +184,7 @@ const EmployeeDetails = () => {
           <p>
             <span>Phone Number:</span> {data.refPhone}
           </p>
+          <hr />
           <h3>Policy</h3>
           <p>
             <span>Relatives:</span> {data.relatives ? data.relatives : "No"}
@@ -185,9 +192,15 @@ const EmployeeDetails = () => {
           <p>
             <span>disease:</span> {data.disease ? data.disease : "No"}
           </p>
+          <div className="text-end">
           <button className="btn btn-primary" onClick={printHandler}>
             Print
           </button>
+          <button className="btn btn-danger ms-5" onClick={printHandler}>
+            Delete
+          </button>
+
+          </div>
         </div>
       </div>
     </div>
