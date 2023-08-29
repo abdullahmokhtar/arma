@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import "./EmployeeDetails.module.css";
-import { db } from "../firebase";
-import { onValue, ref } from "firebase/database";
+import { db, storage } from "../firebase";
+import { onValue, ref, remove } from "firebase/database";
+import Modal from "../components/Modal/Modal";
+import { deleteObject, ref as sRef } from "firebase/storage";
 
 const EmployeeDetails = () => {
   const { empId } = useParams();
@@ -12,6 +14,8 @@ const EmployeeDetails = () => {
     workExperince: [],
     courses: [],
   });
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const componentRef = useRef();
 
@@ -20,6 +24,25 @@ const EmployeeDetails = () => {
     documentTitle: data.name,
     pageStyle: "button { display: none !important;}",
   });
+
+  const deleteHandler = () => {
+    const startIndex = data.profileImageUrl.indexOf("%2F") + 3;
+    const endIndex = data.profileImageUrl.indexOf("?alt");
+    const imageName = data.profileImageUrl.substring(startIndex, endIndex);
+    deleteObject(sRef(storage, "images/" + imageName))
+      .then(() => {
+        remove(ref(db, "employees/" + empId))
+          .then(() => {
+            navigate(-1);
+          })
+          .catch(() => {
+            return <p>something went wrong</p>;
+          });
+      })
+      .catch(() => {
+        return <p>something went wrong</p>;
+      });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,10 +58,37 @@ const EmployeeDetails = () => {
     fetchData();
   }, [empId]);
   if (data.education.length === 0) {
-    return <h1 className="emp-message">unfortunately this employee not found</h1>;
+    return (
+      <h1 className="emp-message">unfortunately this employee not found</h1>
+    );
   }
   return (
     <div ref={componentRef}>
+      {showModal && (
+        <Modal
+          onClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <h2 className="text-center">Delete</h2>
+          <p className="text-center">
+            Are you sure you want to delete this employee?
+          </p>
+          <div className="text-center">
+            <button
+              className="btn btn-info me-3"
+              onClick={() => {
+                setShowModal(false);
+              }}
+            >
+              Cancel
+            </button>
+            <button className="btn btn-danger" onClick={deleteHandler}>
+              Delete
+            </button>
+          </div>
+        </Modal>
+      )}
       <div className="row bg-white p-3 mt-2">
         <div className="col-md-4">
           <img src={data.profileImageUrl} alt="employee" />
@@ -193,13 +243,15 @@ const EmployeeDetails = () => {
             <span>disease:</span> {data.disease ? data.disease : "No"}
           </p>
           <div className="text-end">
-          <button className="btn btn-primary" onClick={printHandler}>
-            Print
-          </button>
-          <button className="btn btn-danger ms-5" onClick={printHandler}>
-            Delete
-          </button>
-
+            <button className="btn btn-primary" onClick={printHandler}>
+              Print
+            </button>
+            <button
+              className="btn btn-danger ms-5"
+              onClick={() => setShowModal(true)}
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
