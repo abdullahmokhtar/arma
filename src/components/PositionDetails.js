@@ -11,7 +11,6 @@ const PositionDetails = ({
   hearing,
   hearingIsValid,
 }) => {
-  console.log("Position Details is render");
   const stepIsValid = positionIsValid && hearingIsValid;
 
   const positions = [

@@ -21,7 +21,7 @@ const Courses = ({
         <div className="col-md-6 my-3">
           <Input
             inputIsValid={values.courseNameIsValid}
-            maxLength="30"
+            maxLength="100"
             value={values.courseName}
             onChange={handleChange("courseName", inputIsNotEmpty)}
             placeholder="Course Name"
@@ -30,7 +30,7 @@ const Courses = ({
         <div className="col-md-6 my-3">
           <Input
             inputIsValid={values.associationIsValid}
-            maxLength="30"
+            maxLength="100"
             value={values.association}
             onChange={handleChange("association", inputIsNotEmpty)}
             placeholder="Association"

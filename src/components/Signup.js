@@ -213,7 +213,6 @@ export default class Signup extends Component {
         "si4_IXbgUSB0dV1ZK"
       );
     } catch (e) {
-      console.log("something went wrong");
     }
   };
 
