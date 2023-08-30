@@ -15,6 +15,7 @@ const EmployeeDetails = () => {
     courses: [],
   });
   const [showModal, setShowModal] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
   const navigate = useNavigate();
 
   const componentRef = useRef();
@@ -26,22 +27,16 @@ const EmployeeDetails = () => {
   });
 
   const deleteHandler = () => {
+    setDisableBtn(true);
     const startIndex = data.profileImageUrl.indexOf("%2F") + 3;
     const endIndex = data.profileImageUrl.indexOf("?alt");
     const imageName = data.profileImageUrl.substring(startIndex, endIndex);
-    deleteObject(sRef(storage, "images/" + imageName))
-      .then(() => {
-        remove(ref(db, "employees/" + empId))
-          .then(() => {
-            navigate(-1);
-          })
-          .catch(() => {
-            return <p>something went wrong</p>;
-          });
-      })
-      .catch(() => {
-        return <p>something went wrong</p>;
+    deleteObject(sRef(storage, "images/" + imageName)).then(() => {
+      remove(ref(db, "employees/" + empId)).then(() => {
+        navigate(-1);
       });
+    });
+    setDisableBtn(false);
   };
 
   useEffect(() => {
@@ -83,7 +78,11 @@ const EmployeeDetails = () => {
             >
               Cancel
             </button>
-            <button className="btn btn-danger" onClick={deleteHandler}>
+            <button
+              disabled={disableBtn}
+              className="btn btn-danger"
+              onClick={deleteHandler}
+            >
               Delete
             </button>
           </div>
@@ -158,13 +157,13 @@ const EmployeeDetails = () => {
             <span>Duties And Respnsiblities:</span> {data.currDuties}
           </p>
           <p>
-            <span>Salary:</span> {data.grossSalary} Egp
+            <span>Salary:</span> {data.currGrossSalary} Egp
           </p>
           <p>
             <span>Reasons for Leave:</span> {data.reasonsToChangeCompany}
           </p>
           <hr />
-          <h3>Previous Experiance</h3>
+          {data.workExperince.length !== 0 && <h3>Previous Experiance</h3>}
           {data.workExperince.map((work, index) => {
             return (
               <div key={index}>
@@ -188,7 +187,7 @@ const EmployeeDetails = () => {
               </div>
             );
           })}
-          <hr />
+          {data.workExperince.length !== 0 && <hr />}
           <h3>Courses</h3>
           {data.courses.map((course, index) => {
             return (

@@ -110,7 +110,7 @@ export default class Signup extends Component {
     try {
       const imageRef = ref(
         storage,
-        "images/" + this.state.profileImage.name.toLowerCase() + uuidv4()
+        "images/" + uuidv4() + this.state.profileImage.name.toLowerCase()
       );
       await uploadBytes(imageRef, this.state.profileImage);
 
