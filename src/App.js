@@ -7,12 +7,12 @@ import {
 
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
-import ProtectedRoutes from "./components/ProtectedRoutes";
-import EmployeeDetails from "./pages/EmployeeDetails";
+import ProtectedRoute from "./util/ProtectedRoute";
 
 const AdminPage = lazy(() => import("./pages/Admin"));
 const LoginPage = lazy(() => import("./pages/Login"));
 const ErrorPage = lazy(() => import("./pages/Error"));
+const EmployeeDetails = lazy(() => import("./pages/EmployeeDetails"));
 
 const router = createBrowserRouter([
   {
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: (
-          <ProtectedRoutes>
+          <ProtectedRoute>
             <Suspense>
               <AdminPage />
             </Suspense>
-          </ProtectedRoutes>
+          </ProtectedRoute>
         ),
       },
       {
@@ -38,8 +38,8 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         loader: () => {
-          if (localStorage.getItem("lll") !== null) {
-            return redirect("/");
+          if (localStorage.getItem("token") !== null) {
+            return redirect("/admin");
           }
           return (
             <Suspense>
@@ -50,18 +50,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/:empId",
-        element: <EmployeeDetails />,
-        loader: () => {
-          if (localStorage.getItem("lll") === null) {
-            return redirect("/login");
-          } else {
-            return <EmployeeDetails />;
-          }
-        },
+        element: (
+          <ProtectedRoute>
+            <Suspense>
+              <EmployeeDetails />
+            </Suspense>
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",
-        element: <ErrorPage />,
+        element: (
+          <Suspense>
+            <ErrorPage />
+          </Suspense>
+        ),
       },
     ],
   },

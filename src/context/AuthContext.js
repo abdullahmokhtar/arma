@@ -16,7 +16,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const logout = ()=>{
-    localStorage.removeItem("lll")
+    localStorage.removeItem("token")
     return signOut(auth);
   };
 
@@ -24,7 +24,8 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser !== null){
-        localStorage.setItem("lll",currentUser.accessToken)
+        localStorage.clear();
+        localStorage.setItem("token",currentUser.accessToken)
       }
     });
 
