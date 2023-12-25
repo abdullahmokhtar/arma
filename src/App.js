@@ -12,7 +12,7 @@ import ProtectedRoute from "./util/ProtectedRoute";
 const AdminPage = lazy(() => import("./pages/Admin"));
 const LoginPage = lazy(() => import("./pages/Login"));
 const ErrorPage = lazy(() => import("./pages/Error"));
-const EmployeeDetails = lazy(() => import("./pages/EmployeeDetails"));
+const EmployeeDetailsPage = lazy(() => import("./pages/EmployeeDetails"));
 
 const router = createBrowserRouter([
   {
@@ -51,11 +51,11 @@ const router = createBrowserRouter([
       {
         path: "/admin/:empId",
         element: (
-          // <ProtectedRoute>
-          // <Suspense>
-          <EmployeeDetails />
-          // </Suspense>
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Suspense>
+              <EmployeeDetailsPage />
+            </Suspense>
+          </ProtectedRoute>
         ),
       },
       {
