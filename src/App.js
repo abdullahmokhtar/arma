@@ -8,11 +8,12 @@ import {
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
 import ProtectedRoute from "./util/ProtectedRoute";
+import EmployeeDetails from "./pages/EmployeeDetails";
 
 const AdminPage = lazy(() => import("./pages/Admin"));
 const LoginPage = lazy(() => import("./pages/Login"));
 const ErrorPage = lazy(() => import("./pages/Error"));
-const EmployeeDetailsPage = lazy(() => import("./pages/EmployeeDetails"));
+// const EmployeeDetailsPage = lazy(() => import("./pages/EmployeeDetails"));
 
 const router = createBrowserRouter([
   {
@@ -52,9 +53,7 @@ const router = createBrowserRouter([
         path: "/admin/:empId",
         element: (
           <ProtectedRoute>
-            <Suspense>
-              <EmployeeDetailsPage />
-            </Suspense>
+              <EmployeeDetails />
           </ProtectedRoute>
         ),
       },
