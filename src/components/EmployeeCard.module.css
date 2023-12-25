@@ -1,44 +1,56 @@
-.employee-card{
-    background-color: #eeded8;
-    padding: 10px 20px;
-    margin: 20px 0;
-    border-radius: 5px;
-    color: #000;
+.employee-card {
+  background-color: #eeded8;
+  padding: 10px 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  color: #000;
 }
 
-.emp-img{
-    height: 300px;
-    width: 300px;
-    border-radius: 50%;
-    overflow: hidden;
+.emp-img {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .emp-img img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
-.emp-info h3{
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
+.emp-info h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.emp-info h4{
-    font-size: 1.1rem;
-    font-weight: 400;
-    text-transform: uppercase;
+.emp-info h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
-p{
-    padding: 0;
+p {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .emp-img {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  }
+
+  .emp-info {
+    text-align: center;
+  }
 }
 
 @media print {
-    .employee-card{
-        width: 100%;
-        height: 100%;
-    }
+  .employee-card {
+    width: 100%;
+    height: 100%;
+  }
 }

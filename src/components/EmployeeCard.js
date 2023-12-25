@@ -25,7 +25,7 @@ const EmployeeCard = ({ employeeData }) => {
           <div className={classes["emp-info"]}>
             <h3> {employeeData.name}</h3>
             <p>
-              <span className="text-bold">Position:</span>{" "}
+              <span className="text-bold">Position:</span>
               {employeeData.position}
             </p>
             <p>
