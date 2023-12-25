@@ -13,7 +13,6 @@ import EmployeeDetails from "./pages/EmployeeDetails";
 const AdminPage = lazy(() => import("./pages/Admin"));
 const LoginPage = lazy(() => import("./pages/Login"));
 const ErrorPage = lazy(() => import("./pages/Error"));
-// const EmployeeDetailsPage = lazy(() => import("./pages/EmployeeDetails"));
 
 const router = createBrowserRouter([
   {
