@@ -51,16 +51,12 @@ const router = createBrowserRouter([
       {
         path: "/admin/:empId",
         element: (
-          <ProtectedRoute>
-            <Suspense>
-              <EmployeeDetails />
-            </Suspense>
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          // <Suspense>
+          <EmployeeDetails />
+          // </Suspense>
+          // </ProtectedRoute>
         ),
-      },
-      {
-        path: 'details',
-        element: <EmployeeDetails />
       },
       {
         path: "*",
